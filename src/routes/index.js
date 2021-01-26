@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Router from "vue-router";
+import AddOrder from "@/views/AddOrder";
 
 Vue.use(Router);
 export default new Router({
@@ -7,12 +8,7 @@ export default new Router({
     {
       path: "/",
       name: "clients",
-      component: AddProduct,
-    },
-    {
-      path: "/staff",
-      name: "staff",
-      component: Products,
+      component: AddOrder,
     },
   ],
 });
