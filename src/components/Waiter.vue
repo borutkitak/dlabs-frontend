@@ -78,6 +78,12 @@ export default {
         exists.paid = true;
       }
     },
+    orderStatus(order) {
+      const index = this.orders.findIndex((o) => o.orderId === order.orderId);
+      if (index > -1) {
+        this.orders.splice(index, 1, order);
+      }
+    },
   },
   methods: {
     serve(orderId, type) {

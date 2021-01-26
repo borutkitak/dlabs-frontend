@@ -11,7 +11,7 @@
           Menu
         </v-card-title>
         <v-card-text>
-          <Menu @addToCart="addToCart" />
+          <Menu @addToCart="addToCart" :orderSent="orderSent" />
         </v-card-text>
       </v-card>
     </v-col>

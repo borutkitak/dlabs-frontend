@@ -55,8 +55,14 @@ export default {
       console.log("socket connected");
     },
     prepareFood(order) {
-        console.log(order)
+      console.log(order);
       this.orders.push(order);
+    },
+    orderStatus(order) {
+      const index = this.orders.findIndex((o) => o.orderId === order.orderId);
+      if (index > -1) {
+        this.orders.splice(index, 1, order);
+      }
     },
   },
   methods: {
