@@ -1,5 +1,10 @@
 <template>
   <v-row>
+    <v-col cols="12">
+      <v-alert v-if="showPaidMsg" dense text type="success">
+        Order was sucessfully paid!
+      </v-alert>
+    </v-col>
     <v-col cols="6">
       <v-card>
         <v-card-title>
@@ -40,7 +45,23 @@
         <v-card-actions>
           Total cost: {{ total }}$
           <v-spacer></v-spacer>
-          <v-btn @click="sendOrderToStaff">Send</v-btn>
+          <v-btn v-if="!orderSent" @click="sendOrderToStaff">Send</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-col>
+    <v-col v-if="order" cols="12">
+      <v-card>
+        <v-card-title>Order status</v-card-title>
+        <v-card-text>
+          Order total: {{ order.total }}$ <br />
+          Drink prepared: {{ order.drinkPrepared }} <br />
+          Drink served: {{ order.drinkServed }} <br />
+          Food served: {{ order.foodServed }} <br />
+          Food prepared: {{ order.foodPrepared }} <br />
+          Paid: {{ order.paid }} <br />
+        </v-card-text>
+        <v-card-actions>
+          <v-btn v-if="order.foodServed && !order.paid" @click="pay">PAY</v-btn>
         </v-card-actions>
       </v-card>
     </v-col>
@@ -56,6 +77,9 @@ export default {
   },
   data: () => ({
     orderItems: [],
+    order: null,
+    orderSent: false,
+    showPaidMsg: false,
   }),
   computed: {
     total() {
@@ -70,18 +94,21 @@ export default {
     connect() {
       console.log("socket connected");
     },
+    orderStatus(order) {
+      console.log(order);
+      this.order = order;
+    },
   },
   methods: {
     addToCart(item) {
-      const exists = this.orderItems.find((i) => i.id === item.id);
-      if (exists) {
-        exists.quantity += 1;
-        this.orderItems.splice(item.id, 1, exists);
+      const index = this.orderItems.findIndex((i) => i.id === item.id);
+      if (index > -1) {
+        const i = this.orderItems[index];
+        i.quantity += 1;
+        this.orderItems.splice(index, 1, i);
       } else {
-        item.quantity = 1;
         this.orderItems.push(item);
       }
-      console.log(this.orderItems);
     },
     sendOrderToStaff() {
       const order = {
@@ -94,6 +121,7 @@ export default {
         paid: false,
         food: [],
         drink: [],
+        total: this.total,
       };
       this.orderItems.forEach((element) => {
         if (element.type === types.FOOD) {
@@ -102,7 +130,19 @@ export default {
           order.drink.push(element);
         }
       });
-      this.$socket.emit('sendOrder', order);
+      this.$socket.emit("sendOrder", order);
+      this.orderSent = true;
+      this.order = order;
+    },
+    pay() {
+      this.$socket.emit("payOrder", this.order.orderId, (data) => {
+        console.log(data);
+        if (data) {
+          this.order.paid = true;
+          this.showPaidMsg = true;
+          setTimeout(() => (this.showPaidMsg = false), 4000);
+        }
+      });
     },
   },
 };

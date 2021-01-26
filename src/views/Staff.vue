@@ -4,8 +4,10 @@
       <login @login="login" />
     </v-col>
     <v-col v-else>
+        {{ user.username }} - {{ user.role }}
       <barman v-if="user.role === 'BARMAN'" />
       <waiter v-else-if="user.role === 'WAITER'" />
+      <chef v-else />
     </v-col>
   </v-row>
 </template>
@@ -13,12 +15,14 @@
 import Login from "../components/Login";
 import Barman from "../components/Barman";
 import Waiter from "../components/Waiter";
+import Chef from "../components/Chef";
 
 export default {
   components: {
     Login,
     Barman,
-    Waiter
+    Waiter,
+    Chef
   },
   data: () => ({
     user: null,

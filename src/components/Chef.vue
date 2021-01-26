@@ -1,6 +1,6 @@
 <template>
   <v-row>
-    <v-col cols="6">
+    <v-col cols="12">
       <v-card>
         <v-card-title> Orders </v-card-title>
         <v-card-text>
@@ -15,13 +15,10 @@
                     TableId
                   </th>
                   <th class="text-left">
-                    Drink served
+                    Food
                   </th>
                   <th class="text-left">
-                    Food served
-                  </th>
-                  <th class="text-left">
-                    Paid
+                    Food prepared
                   </th>
                 </tr>
               </thead>
@@ -29,19 +26,13 @@
                 <tr v-for="item in orders" :key="item.id">
                   <td>{{ item.orderId }}</td>
                   <td>{{ item.tableId }}</td>
-                  <td>{{ item.drinkServed }}</td>
-                  <td>{{ item.foodServed }}</td>
-                  <td>{{ item.paid }}</td>
+                  <td>{{ formatFood(item.food) }}</td>
+                  <td>{{ item.drinkPrepared }}</td>
                   <td>
                     <v-btn
-                      @click="serve(item.orderId, 'drink')"
-                      v-if="!item.drinkServed"
-                      >Serve drink</v-btn
-                    >
-                    <v-btn
-                      @click="serve(item.orderId, 'food')"
-                      v-else-if="!item.foodServed && item.foodPrepared"
-                      >Serve food</v-btn
+                      @click="prepare(item.orderId)"
+                      v-if="!item.foodPrepared"
+                      >Prepare</v-btn
                     >
                   </td>
                 </tr>
@@ -63,32 +54,23 @@ export default {
     connect() {
       console.log("socket connected");
     },
-    serveDrinks(order) {
+    prepareFood(order) {
+        console.log(order)
       this.orders.push(order);
-    },
-    serveFood(orderId) {
-      const exists = this.orders.find((o) => o.orderId === orderId);
-      if (exists) {
-        exists.foodPrepared = true;
-      }
-    },
-    paid(orderId) {
-      const exists = this.orders.find((o) => o.orderId === orderId);
-      if (exists) {
-        exists.paid = true;
-      }
     },
   },
   methods: {
-    serve(orderId, type) {
+    prepare(orderId) {
       const order = this.orders.find((o) => o.orderId === orderId);
-      if (type === "drink") {
-        order.drinkServed = true;
-        this.$socket.emit("drinkServed", orderId);
-      } else {
-        order.foodServed = true;
-        this.$socket.emit("foodServed", orderId);
-      }
+      order.foodPrepared = true;
+      this.$socket.emit("foodPrepared", orderId);
+    },
+    formatFood(food) {
+      let str = "";
+      food.forEach((d) => {
+        str += d.name + " x " + d.quantity + ", ";
+      });
+      return str;
     },
   },
 };

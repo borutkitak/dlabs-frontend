@@ -1,6 +1,6 @@
 <template>
   <v-row>
-    <v-col cols="6">
+    <v-col cols="12">
       <v-card>
         <v-card-title> Orders </v-card-title>
         <v-card-text>
@@ -15,6 +15,9 @@
                     TableId
                   </th>
                   <th class="text-left">
+                    Drinks
+                  </th>
+                  <th class="text-left">
                     Drink prepared
                   </th>
                 </tr>
@@ -23,8 +26,15 @@
                 <tr v-for="item in orders" :key="item.id">
                   <td>{{ item.orderId }}</td>
                   <td>{{ item.tableId }}</td>
+                  <td>{{ formatDrink(item.drink) }}</td>
                   <td>{{ item.drinkPrepared }}</td>
-                  <td><v-btn @click="prepare(item.orderId)" v-if="!item.drinkPrepared">Prepare</v-btn></td>
+                  <td>
+                    <v-btn
+                      @click="prepare(item.orderId)"
+                      v-if="!item.drinkPrepared"
+                      >Prepare</v-btn
+                    >
+                  </td>
                 </tr>
               </tbody>
             </template>
@@ -35,10 +45,8 @@
   </v-row>
 </template>
 <script>
-
 export default {
-  components: {
-  },
+  components: {},
   data: () => ({
     orders: [],
   }),
@@ -52,9 +60,16 @@ export default {
   },
   methods: {
     prepare(orderId) {
-        const order = this.orders.find(o => o.orderId === orderId);
-        order.drinkPrepared = true;
-        this.$socket.emit('prepareDrink', orderId);
+      const order = this.orders.find((o) => o.orderId === orderId);
+      order.drinkPrepared = true;
+      this.$socket.emit("prepareDrink", orderId);
+    },
+    formatDrink(drink) {
+      let str = "";
+      drink.forEach((d) => {
+        str += d.name + " x " + d.quantity + ", ";
+      });
+      return str;
     },
   },
 };

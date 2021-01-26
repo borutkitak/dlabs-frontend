@@ -42,19 +42,22 @@ import { types } from '../consts';
             id: 0,
             name: 'Grilled space-whale steak with algae puree',
             type: types.FOOD,
-            price: 66.50
+            price: 66.50,
+            quantity: 1,
           },
           {
             id: 1,
             name: 'Tea substitute',
             type: types.DRINK,
-            price: 1.50
+            price: 1.50,
+            quantity: 1,
           },
           {
             id: 2,
             name: 'Hagro bicuit',
             type: types.FOOD,
-            price: 32.00
+            price: 32.00,
+            quantity: 1,
           },
         ],
       }
