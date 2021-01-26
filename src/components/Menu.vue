@@ -20,7 +20,7 @@
         <tr v-for="item in menus" :key="item.id">
           <td>{{ item.name }}</td>
           <td>{{ item.type }}</td>
-          <td>{{ item.price }}</td>
+          <td>{{ item.price }}$</td>
           <td><v-btn v-if="!orderSent" @click="$emit('addToCart', item)">Add to cart</v-btn></td>
         </tr>
       </tbody>
@@ -56,6 +56,34 @@ export default {
           name: "Hagro bicuit",
           type: types.FOOD,
           price: 32.0,
+          quantity: 1,
+        },
+        {
+          id: 3,
+          name: "Amegelian Majon Cow casserole",
+          type: types.FOOD,
+          price: 55.75,
+          quantity: 1,
+        },
+        {
+          id: 4,
+          name: "Pan Galactic Gargle Blaster",
+          type: types.DRINK,
+          price: 5.50,
+          quantity: 1,
+        },
+        {
+          id: 5,
+          name: "Janx Spirit",
+          type: types.DRINK,
+          price: 7.00,
+          quantity: 1,
+        },
+        {
+          id: 6,
+          name: "Tzjin-anthony-ks",
+          type: types.DRINK,
+          price: 11.50,
           quantity: 1,
         },
       ],

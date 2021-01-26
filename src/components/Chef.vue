@@ -20,6 +20,9 @@
                   <th class="text-left">
                     Food prepared
                   </th>
+                  <th class="text-left">
+                    Food served
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -27,7 +30,8 @@
                   <td>{{ item.orderId }}</td>
                   <td>{{ item.tableId }}</td>
                   <td>{{ formatFood(item.food) }}</td>
-                  <td>{{ item.drinkPrepared }}</td>
+                  <td>{{ item.foodPrepared }}</td>
+                  <td>{{ item.foodServed }}</td>
                   <td>
                     <v-btn
                       @click="prepare(item.orderId)"
