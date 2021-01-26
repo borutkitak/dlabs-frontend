@@ -32,7 +32,7 @@
                     <v-btn
                       @click="prepare(item.orderId)"
                       v-if="!item.foodPrepared"
-                      >Prepare</v-btn
+                      >Prepare food</v-btn
                     >
                   </td>
                 </tr>
