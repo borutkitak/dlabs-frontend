@@ -1,6 +1,6 @@
 <template>
   <v-row>
-    <v-col cols="6">
+    <v-col cols="12">
       <v-card>
         <v-card-title> Orders </v-card-title>
         <v-card-text>

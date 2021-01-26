@@ -16,64 +16,24 @@
       </v-card>
     </v-col>
     <v-col cols="6" v-if="orderItems.length">
-      <v-card>
-        <v-card-title>
-          Order items
-        </v-card-title>
-        <v-card-text>
-          <v-simple-table>
-            <template v-slot:default>
-              <thead>
-                <tr>
-                  <th class="text-left">
-                    Name
-                  </th>
-                  <th class="text-left">
-                    Quantity
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="item in orderItems" :key="item.id">
-                  <td>{{ item.name }}</td>
-                  <td>{{ item.quantity }}</td>
-                </tr>
-              </tbody>
-            </template>
-          </v-simple-table>
-        </v-card-text>
-        <v-card-actions>
-          Total cost: {{ total }}$
-          <v-spacer></v-spacer>
-          <v-btn v-if="!orderSent" @click="sendOrderToStaff">Send</v-btn>
-        </v-card-actions>
-      </v-card>
+      <order-items :orderItems="orderItems" :orderSent="orderSent" :total="total" @sendOrderToStaff="sendOrderToStaff"/>
     </v-col>
     <v-col v-if="order" cols="6">
-      <v-card>
-        <v-card-title>Order status</v-card-title>
-        <v-card-text>
-          Order total: {{ order.total }}$ <br />
-          Drink prepared: {{ order.drinkPrepared }} <br />
-          Drink served: {{ order.drinkServed }} <br />
-          Food served: {{ order.foodServed }} <br />
-          Food prepared: {{ order.foodPrepared }} <br />
-          Paid: {{ order.paid }} <br />
-        </v-card-text>
-        <v-card-actions>
-          <v-btn v-if="order.foodServed && !order.paid" @click="pay">PAY</v-btn>
-        </v-card-actions>
-      </v-card>
+      <order-status @pay="pay" :order="order" />
     </v-col>
   </v-row>
 </template>
 <script>
 import Menu from "../components/Menu";
+import OrderItems from '../components/OrderItems.vue';
+import OrderStatus from '../components/OrderStatus.vue';
 import { types } from "../consts";
 
 export default {
   components: {
     Menu,
+    OrderStatus,
+    OrderItems,
   },
   data: () => ({
     orderItems: [],

@@ -4,7 +4,7 @@
       <login @login="login" />
     </v-col>
     <v-col v-else>
-      {{ user.username }} - {{ user.role }}
+      <h2>{{ user.username }} - {{ user.role }}</h2>
       <barman v-if="user.role === 'BARMAN'" />
       <waiter v-else-if="user.role === 'WAITER'" />
       <chef v-else />
