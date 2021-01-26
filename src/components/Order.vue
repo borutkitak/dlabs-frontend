@@ -34,7 +34,6 @@
 </template>
 <script>
 import Menu from "../components/Menu";
-import { types } from "../consts";
 
 export default {
   components: {

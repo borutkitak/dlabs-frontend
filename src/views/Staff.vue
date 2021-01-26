@@ -4,7 +4,7 @@
       <login @login="login" />
     </v-col>
     <v-col v-else>
-        {{ user.username }} - {{ user.role }}
+      {{ user.username }} - {{ user.role }}
       <barman v-if="user.role === 'BARMAN'" />
       <waiter v-else-if="user.role === 'WAITER'" />
       <chef v-else />
@@ -22,7 +22,7 @@ export default {
     Login,
     Barman,
     Waiter,
-    Chef
+    Chef,
   },
   data: () => ({
     user: null,

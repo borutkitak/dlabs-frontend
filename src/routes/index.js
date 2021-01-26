@@ -12,9 +12,9 @@ export default new Router({
       component: AddOrder,
     },
     {
-        path: "/staff",
-        name: "staff",
-        component: Staff,
-      },
+      path: "/staff",
+      name: "staff",
+      component: Staff,
+    },
   ],
 });

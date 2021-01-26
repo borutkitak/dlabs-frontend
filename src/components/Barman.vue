@@ -58,7 +58,6 @@ export default {
       this.orders.push(order);
     },
     orderStatus(order) {
-      console.log(order);
       const index = this.orders.findIndex((o) => o.orderId === order.orderId);
       if (index > -1) {
         this.orders.splice(index, 1, order);

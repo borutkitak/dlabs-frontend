@@ -55,7 +55,6 @@ export default {
       console.log("socket connected");
     },
     prepareFood(order) {
-      console.log(order);
       this.orders.push(order);
     },
     orderStatus(order) {

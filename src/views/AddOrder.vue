@@ -49,7 +49,7 @@
         </v-card-actions>
       </v-card>
     </v-col>
-    <v-col v-if="order" cols="12">
+    <v-col v-if="order" cols="6">
       <v-card>
         <v-card-title>Order status</v-card-title>
         <v-card-text>
@@ -95,7 +95,6 @@ export default {
       console.log("socket connected");
     },
     orderStatus(order) {
-      console.log(order);
       this.order = order;
     },
   },
