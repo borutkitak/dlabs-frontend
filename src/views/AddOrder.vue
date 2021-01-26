@@ -66,6 +66,11 @@ export default {
       return total;
     },
   },
+  sockets: {
+    connect() {
+      console.log("socket connected");
+    },
+  },
   methods: {
     addToCart(item) {
       const exists = this.orderItems.find((i) => i.id === item.id);
@@ -97,7 +102,7 @@ export default {
           order.drink.push(element);
         }
       });
-      console.log(order);
+      this.$socket.emit('sendOrder', order);
     },
   },
 };

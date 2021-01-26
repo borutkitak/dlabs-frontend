@@ -9,8 +9,10 @@
   },
   "dependencies": {
     "core-js": "^3.6.5",
+    "socket.io-client": "^2.3.1",
     "vue": "^2.6.11",
     "vue-router": "^3.5.1",
+    "vue-socket.io": "^3.0.10",
     "vuetify": "^2.2.11"
   },
   "devDependencies": {
